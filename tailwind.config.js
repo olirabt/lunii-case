@@ -5,11 +5,12 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    screens: {
-      sm: "0",
-      md: "700px",
-      lg: "1024px",
-      xl: "1300px",
+    container: {
+      center: true,
+      padding: "3rem",
+      screens: {
+        DEFAULT: "100%",
+      },
     },
     fontFamily: {
       nunito: ["Nunito", "sans-serif"],
@@ -18,20 +19,23 @@ module.exports = {
       sm: "14px",
       md: "24px",
     },
+    fontWeight: {
+      normal: "500",
+      bold: "700",
+    },
     colors: {
       transparent: "rgba(0,0,0,0)",
+      primary400: "#80ABCF",
       primary500: "#3F96F3",
       primary600: "#2F76D2",
       secondary500: "#FCEB4F",
       neutral0: "#FFFFFF",
       neutral900: "#000000",
-      alert400: "#FFEBEB",
-      alert500: "#D70D0D",
+      alert400: "#FFCFD5",
+      alert500: "#983E4C",
       validate400: "#C6EBD4",
       validate500: "#31784B",
     },
-    extend: {},
   },
-  plugins: [],
 };
 
