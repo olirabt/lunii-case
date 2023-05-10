@@ -24,14 +24,13 @@ const Form = () => {
 
 	const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
-		// Check if URL is valid
-		// if (!isValidUrl(formValues.url)) {
-		// 	setError(true);
-		// 	setFormSubmitted(true);
-		// 	return;
-		// }
 
-		// setError(false)
+		// Check if URL is valid
+		if (!isValidUrl(formValues.url)) {
+			setError("invalid url");
+			setFormSubmitted(true);
+			return;
+		}
 
 		try {
 			const response = await fetch('/api/shorturl', {
@@ -52,7 +51,7 @@ const Form = () => {
 		} catch (error) {
 			setError("An error occurred. Please try again later.");
 		}
-		
+
 		setFormSubmitted(true);
 	};
 
@@ -82,9 +81,9 @@ const Form = () => {
 				/>
 				<Button className="w-1/4" onClick={handleSubmit}>Submit</Button>
 			</form>
-			<hr className="border-0 m-0 p-0 w-full h-[2px] bg-primary400 opacity-60 shadow-md"/>
+			<hr className="border-0 m-0 p-0 w-full h-[2px] bg-primary400 opacity-60 shadow-md" />
 			{formSubmitted && (
-				<FormAlert type={error ? "warning" : "success"} originalUrl={shortUrlResponse.originalUrl} shortUrl={shortUrlResponse.shortUrl}/>
+				<FormAlert type={error ? "warning" : "success"} originalUrl={shortUrlResponse.originalUrl} shortUrl={shortUrlResponse.shortUrl} error="L’url saisie est invalide" />
 			)}
 		</div>
 	);
