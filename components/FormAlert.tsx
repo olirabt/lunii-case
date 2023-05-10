@@ -10,10 +10,10 @@ interface FormAlertProps {
 
 const FormAlert: React.FC<FormAlertProps> = ({ type, originalUrl = "", shortUrl = "", error = "" }) => {
 
-	const alertClass = cn({
+	const alertClass = {
 		"bg-validate500 text-validate400": type === "success",
 		"bg-alert400 text-alert500": type === "warning",
-	});
+	};
 
 	const RedirectLink = <Link href={originalUrl}>{shortUrl}</Link>;
 
