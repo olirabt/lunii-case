@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import cn from "classnames";
 import Link from "next/link"
 
@@ -6,16 +5,10 @@ interface FormAlertProps {
 	type: "success" | "warning";
 	originalUrl: string;
 	shortUrl: string;
+	error: string | null;
 }
 
-const FormAlert: React.FC<FormAlertProps> = ({ type, originalUrl = "", shortUrl = "" }) => {
-	const [show, setShow] = useState(false);
-
-	useEffect(() => {
-		if (type) {
-			setShow(true);
-		}
-	}, [type]);
+const FormAlert: React.FC<FormAlertProps> = ({ type, originalUrl = "", shortUrl = "", error = "" }) => {
 
 	const alertClass = cn({
 		"bg-validate500 text-validate400": type === "success",
@@ -27,7 +20,7 @@ const FormAlert: React.FC<FormAlertProps> = ({ type, originalUrl = "", shortUrl 
 	return (
 		<div className={cn("text-left w-full px-5 py-3 mx-auto rounded-md", alertClass)}>
 			{type === "success" && <p>Voici le lien raccourci : {RedirectLink}</p>}
-			{type === "warning" && <p>L’url saisie est invalide.</p>}
+			{type === "warning" && <p>{error}</p>}
 		</div>
 	);
 };

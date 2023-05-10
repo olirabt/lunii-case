@@ -1,12 +1,12 @@
-import { ReactNode } from "react";
-import Head from "next/head";
-import Header from "./Header";
+import React from 'react';
+import Head from 'next/head';
+import Header from './Header';
 
 type Props = {
-  children: ReactNode;
+  children: React.ReactNode;
 };
 
-const Layout = ({ children }: Props) => {
+const Layout: React.FC<Props> = ({ children }) => {
   return (
     <>
       <Head>
@@ -16,6 +16,6 @@ const Layout = ({ children }: Props) => {
       <main>{children}</main>
     </>
   );
-}
+};
 
 export default Layout;

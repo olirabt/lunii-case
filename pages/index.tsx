@@ -12,9 +12,9 @@ export default function Home() {
         </Head>
 
         <main>
-          <PageHeader header="Etude de cas Lunii"/>
+          <PageHeader header="Etude de cas Lunii" />
           <p className="text-md my-4">
-            <Link href="/shorturl" className="cursor-pointer border p-4 ">Accéder au service de réduction d'url &rarr;</Link>
+            <Link href="/shorturl" className="cursor-pointer border p-4 ">Accéder au service de réduction d&apos;url &rarr;</Link>
           </p>
         </main>
       </div>

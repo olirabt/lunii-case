@@ -14,7 +14,7 @@ type ResponseData = SuccessResponse | ErrorResponse;
 export default function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
 	if (req.method === "POST") {
 		const { url } = req.body;
-		
+
 		const isValidUrl = (url: string): boolean => {
 			try {
 				new URL(url);
@@ -37,7 +37,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Respon
 
 			return shortUrl;
 		}
-			res.status(200).json({ originalUrl: url, shortUrl: generateShortURL(url) });
+		res.status(200).json({ originalUrl: url, shortUrl: generateShortURL(url) });
 	} else {
 		res.status(400).json({ error: "invalid request method" });
 	}
