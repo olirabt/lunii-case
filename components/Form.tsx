@@ -25,13 +25,14 @@ const Form = () => {
 	const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 
-		// Check if URL is valid
+		//frontend validation of the url provided in the form
 		if (!isValidUrl(formValues.url)) {
-			setError("invalid url");
+			setError("L’url saisie est invalide");
 			setFormSubmitted(true);
 			return;
 		}
 
+		//send the url to shorten to the backend service
 		try {
 			const response = await fetch('/api/shorturl', {
 				method: 'POST',
@@ -40,6 +41,7 @@ const Form = () => {
 				},
 				body: JSON.stringify({ url: formValues.url }),
 			})
+
 			if (!response.ok) {
 				const errorResponse = await response.json();
 				setError(errorResponse.error);
@@ -82,8 +84,9 @@ const Form = () => {
 				<Button className="w-1/4" onClick={handleSubmit}>Submit</Button>
 			</form>
 			<hr className="border-0 m-0 p-0 w-full h-[2px] bg-primary400 opacity-60 shadow-md" />
+			{/* toggle alert when form is submitted */}
 			{formSubmitted && (
-				<FormAlert type={error ? "warning" : "success"} originalUrl={shortUrlResponse.originalUrl} shortUrl={shortUrlResponse.shortUrl} error="L’url saisie est invalide" />
+				<FormAlert type={error ? "warning" : "success"} originalUrl={shortUrlResponse.originalUrl} shortUrl={shortUrlResponse.shortUrl} error={error} />
 			)}
 		</div>
 	);
