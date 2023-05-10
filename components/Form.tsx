@@ -1,14 +1,15 @@
-import { useState, ChangeEvent } from 'react';
-import Button from './Button';
-import Input from './Input';
-import FormAlert from './FormAlert';
+import { useState, ChangeEvent } from "react";
+import Button from "./Button";
+import Input from "./Input";
+import FormAlert from "./FormAlert";
+import isValidUrl from "../utils/isvalidurl";
 
 interface FormValues {
 	url: string;
 }
 
 const defaultFormValues: FormValues = {
-	url: '',
+	url: "",
 };
 
 interface ShortUrlResponse {
@@ -20,7 +21,7 @@ const Form = () => {
 	const [formValues, setFormValues] = useState<FormValues>(defaultFormValues);
 	const [error, setError] = useState<string | null>(null);
 	const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
-	const [shortUrlResponse, setShortUrlResponse] = useState<ShortUrlResponse>({ originalUrl: '', shortUrl: '' });
+	const [shortUrlResponse, setShortUrlResponse] = useState<ShortUrlResponse>({ originalUrl: "", shortUrl: "" });
 
 	const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
@@ -34,10 +35,10 @@ const Form = () => {
 
 		//send the url to shorten to the backend service
 		try {
-			const response = await fetch('/api/shorturl', {
-				method: 'POST',
+			const response = await fetch("/api/shorturl", {
+				method: "POST",
 				headers: {
-					'Content-Type': 'application/json',
+					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({ url: formValues.url }),
 			})
@@ -62,15 +63,6 @@ const Form = () => {
 		setShortUrlResponse({ originalUrl: "", shortUrl: "" });
 		setFormValues((prev) => ({ ...prev, url: event.target.value }));
 		setError("");
-	};
-
-	const isValidUrl = (url: string): boolean => {
-		try {
-			new URL(url);
-			return true;
-		} catch (error) {
-			return false;
-		}
 	};
 
 	return (
