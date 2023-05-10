@@ -11,26 +11,56 @@ const defaultFormValues: FormValues = {
 	url: '',
 };
 
+interface ShortUrlResponse {
+	originalUrl: string;
+	shortUrl: string;
+}
+
 const Form = () => {
 	const [formValues, setFormValues] = useState<FormValues>(defaultFormValues);
-	const [urlError, setUrlError] = useState<boolean>(false);
+	const [error, setError] = useState<string | null>(null);
 	const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+	const [shortUrlResponse, setShortUrlResponse] = useState<ShortUrlResponse>({ originalUrl: '', shortUrl: '' });
 
-	const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+	const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 		// Check if URL is valid
-		isValidUrl(formValues.url) ? setUrlError(false) : setUrlError(true)
+		// if (!isValidUrl(formValues.url)) {
+		// 	setError(true);
+		// 	setFormSubmitted(true);
+		// 	return;
+		// }
 
+		// setError(false)
+
+		try {
+			const response = await fetch('/api/shorturl', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ url: formValues.url }),
+			})
+			if (!response.ok) {
+				const errorResponse = await response.json();
+				setError(errorResponse.error);
+			} else {
+				const shortUrlResponse = await response.json();
+				setShortUrlResponse(shortUrlResponse);
+			}
+
+		} catch (error) {
+			setError("An error occurred. Please try again later.");
+		}
+		
 		setFormSubmitted(true);
-
-		// Do something with the form values
-		console.log(formValues);
 	};
 
 	const handleUrlChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setFormSubmitted(false);
+		setShortUrlResponse({ originalUrl: "", shortUrl: "" });
 		setFormValues((prev) => ({ ...prev, url: event.target.value }));
-		setUrlError(false);
+		setError("");
 	};
 
 	const isValidUrl = (url: string): boolean => {
@@ -54,7 +84,7 @@ const Form = () => {
 			</form>
 			<hr className="border-0 m-0 p-0 w-full h-[2px] bg-primary400 opacity-60 shadow-md"/>
 			{formSubmitted && (
-				<FormAlert type={urlError ? "warning" : "success"}/>
+				<FormAlert type={error ? "warning" : "success"} originalUrl={shortUrlResponse.originalUrl} shortUrl={shortUrlResponse.shortUrl}/>
 			)}
 		</div>
 	);
