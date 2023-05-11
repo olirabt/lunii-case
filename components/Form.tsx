@@ -1,7 +1,8 @@
 import { useState, ChangeEvent } from "react";
-import Button from "./Button";
-import Input from "./Input";
-import FormAlert from "./FormAlert";
+import Link from "next/link"
+import Button from "./UI/Button";
+import Input from "./UI/Input";
+import Alert from "./UI/Alert";
 import isValidUrl from "../utils/isvalidurl";
 
 interface FormValues {
@@ -65,6 +66,10 @@ const Form = () => {
 		setError("");
 	};
 
+	//build the dom that will be displayed in the Alert component in both cases:
+	const successDom = (<p>Voici le lien raccourci : {<Link href={shortUrlResponse.originalUrl}>{shortUrlResponse.shortUrl}</Link>}</p>);
+	const errorDom = (<p>{error}</p>);
+
 	return (
 		<div className="flex flex-col space-y-12">
 			<form className="w-auto flex items-center justify-between gap-x-4">
@@ -78,7 +83,7 @@ const Form = () => {
 			<hr className="border-0 m-0 p-0 w-full h-[2px] bg-primary400 opacity-60 shadow-md" />
 			{/* toggle alert when form is submitted */}
 			{formSubmitted && (
-				<FormAlert type={error ? "warning" : "success"} originalUrl={shortUrlResponse.originalUrl} shortUrl={shortUrlResponse.shortUrl} error={error} />
+				error ? <Alert type="warning">{errorDom}</Alert> : <Alert type="success">{successDom}</Alert>
 			)}
 		</div>
 	);

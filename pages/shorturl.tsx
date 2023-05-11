@@ -1,7 +1,7 @@
 import Head from "next/head"
 import Form from '../components/Form';
 import Layout from "../components/Layout";
-import PageHeader from "../components/PageHeader";
+import PageHeader from "../components/UI/PageHeader";
 
 export default function Shorturl() {
   return (

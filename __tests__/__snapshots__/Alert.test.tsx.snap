@@ -1,29 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FormAlert renders the success message correctly 1`] = `
+exports[`Alert renders the success message correctly 1`] = `
 <div>
   <div
     class="text-left w-full px-5 py-3 mx-auto rounded-md bg-validate500 text-validate400"
   >
     <p>
-      Voici le lien raccourci : 
-      <a
-        href="http://google.com/somelongparameter"
-      >
-        https://shorturl.com
-      </a>
+      Success message
     </p>
   </div>
 </div>
 `;
 
-exports[`FormAlert renders the warning message correctly 1`] = `
+exports[`Alert renders the warning message correctly 1`] = `
 <div>
   <div
     class="text-left w-full px-5 py-3 mx-auto rounded-md bg-alert400 text-alert500"
   >
     <p>
-      L’url saisie est invalide
+      L'url saisie est invalide
     </p>
   </div>
 </div>

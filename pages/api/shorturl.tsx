@@ -25,7 +25,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Respon
 		const generateShortURL = (url: string): string => {
 			/* this function serves as a mock for the exercise
 			to make it work a database is needed to make the data persistent
-			we could use the "nanoid" package to generate a short url  */
+			we could also use the "nanoid" package to generate a short url  */
 			const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 			const shortString = Array.from({ length: 6 }, () => characters[Math.floor(Math.random() * characters.length)]).join("");
 
